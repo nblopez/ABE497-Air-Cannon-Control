@@ -35,7 +35,7 @@ Obj_Diam = float(input('Diameter of Object (mm) [40] = ') or 40) / 1000
 
 #Cannon Chars
 Barrel_Length = float(input('Length of Cannon Barrel (m) [0.5] = ') or 0.5)
-Barrel_Diam = float(input('Diameter of Cannon Barrel (mm) [42] = ') or 42)
+Barrel_Diam = float(input('Diameter of Cannon Barrel (mm) [42] = ') or 42) / 1000
 Barrel_Thickness = float(input('Thickness of Cannon Barrel Wall (mm) [6] = ') or 6) / 1000
 
 Res_Length = float(input('Length of Reservoir (m) [0.6] = ') or 0.6)
@@ -53,8 +53,9 @@ Barrel_Exit_Height = Barrel_Length * np.sin(Barrel_Angle_rad)
 Res_Pressure_psi = float(input('Pressure in Reservoir (psi) [50] = ') or 50)
 Res_Pressure_pa = Res_Pressure_psi * 6894.76
 
+
 #Ambient Air Parameters
-Temp_Outside_f = float(input('Ambient Air Temperature (f) [65] = ')  or 65)
+Temp_Outside_f = float(input('Ambient Air Temperature (f) [68] = ')  or 68)
 Temp_Outside_K = (Temp_Outside_f - 32) * 5/9 + 273.15
 
 #Initial Calculations
@@ -68,7 +69,7 @@ Pressure_PostFire = (Res_Pressure_pa * Air_Vol_PreFire**k)/Air_Vol_PostFire**k
 Temp_PostFire = Temp_Outside_K * (Pressure_PostFire/Res_Pressure_pa)**((k-1)/k)
 
 Work = ((Pressure_PostFire * Air_Vol_PostFire) - (Res_Pressure_pa * Air_Vol_PreFire))/(1-k)
-print(Work)
+#print(Work)
 Vel_Exit = np.sqrt((2/Obj_Mass)*Work)
 
 Vy_Exit = Vel_Exit * np.sin(Barrel_Angle_rad)
