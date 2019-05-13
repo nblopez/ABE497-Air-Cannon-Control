@@ -1,0 +1,81 @@
+\documentclass[11pt,letterpaper]{scrartcl}
+\usepackage[margin=0.9in]{geometry}
+\usepackage[utf8]{inputenc}
+%\usepackage{cite}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+%\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+%\usepackage{verbatim}
+%\usepackage{datenumber}
+\usepackage{gensymb}
+%\usepackage{lscape}
+%\usepackage[version=4]{mhchem}
+\usepackage{listings}
+
+\setlength\parindent{0pt}
+
+\hypersetup{colorlinks=true,linkcolor=blue, linktocpage}
+
+
+\title{\vspace{-2.5cm} Independent Study Project Proposal: \\
+	ABE223 Air Cannon Rebuild and Miniature Demonstration Cannon Build}
+\author{By: Noah Lopez \\
+	Faculty Advisor: Professor Grift}
+
+\begin{document}
+	\maketitle
+	
+	\section{Introduction}
+	In ABE223 (ABE Principles: Machine Systems), we learn the basics of ballistic calculations and then fire the orange air cannon for demonstration purposes. In its current state it slowly leaks air through the seal at the tip of the barrel as well as through the current release valve. It is also impossible to see the piston mechanism working due to the metal exterior of the cannon. With a high quality CAD model of the orange cannon as well as a clear demonstration cannon, students will be better able to understand the mechanism behind which the cannon is fired. With a computer controlled setup on the demonstration cannon they will also have their first in-class introduction to electro-mechanical systems.\\
+
+	The goals of this project are as follows:
+	\begin{enumerate}
+	\item Rebuild the orange cannon from ABE223 to reduce leaks.
+	\item Create a CAD model of the orange cannon with mechanical animations (shifting of the piston in the barrel for release of air).
+	\item Design a miniature air cannon (scaled to be able to be fired inside possibly).
+	\subitem - Note: This will be a clear cannon using pressure rated clear pvc.
+	\item Integrate a control system into the cannon for measurement of pressure, ball exit velocity, temperature (possibly)
+	\end{enumerate}
+	
+	\section{Cannon Rebuild/CAD Model Creation}
+	Preliminary Procedure (taking measurements for CAD throughout rebuild):
+	\begin{enumerate}
+	\item Replace the thick rubber seal at the tip of the barrel with a combination silicone and rubber disk seal.
+	\item Disassemble the lower section to understand piston firing mechanism
+	\item Replace ball valve trigger/fix leak in valve
+	\item Build CAD model of orange cannon not including mounting, 
+	\subitem - Note: If time permits, create CFD model of airflow on opening of ball valve
+	\end{enumerate}
+	
+	\section{Miniature Air Cannon}
+	This is the primary piece of the project. As mentioned above, by building a clear version of the orange cannon, students will be able to see both the firing mechanism in action, and the possible vaporization of the air inside. \\
+	
+	Having a small version of the cannon will also be conducive to testing of control sytems and adiabatic process research. With its lighter weight and ease of modification due to it being plastic rather than steel, it will be simpler to add measurement devices such as pressure, angle, temperature, and ball velocity.\\
+	
+	\textbf{	Preliminary Material List:}
+	\begin{itemize}
+	\item Schedule 40 or 80 Clear PVC Piping, the difference being the sizing of the pipe as well as pressure ratings. \href{https://www.engineeringtoolbox.com/pvc-cpvc-pipes-pressures-d_796.html}{Here is a link for a plot of pipe diameter vs max operating pressure vs burst pressures.}
+	\subitem - \href{http://63.156.201.111/SMC/PIPE_PIPE.htm#CLR10}{Link to Spears PVC Catalog with pricing}
+	\subitem - Pricing ranges from \$2 per foot up to \$10 per foot in 10 foot segments
+	
+	\item AtomicPi/RaspberryPi as main controlling computer for the control system. This device will run the trajectory calculations as well as manage the microcontroller.
+	
+	The AtomicPi is a newly release x86 device, while the RaspberryPi is a standardized ARM device. They are currently the same cost at \$35, however that may change. The RaspberryPi Zero W is another option at a much cheaper \$5 although it will be slower and take more work to have interact nicely with the microcontroller.
+	
+	\item Arduino or Teensy (A type of high speed microcontroller)\\
+	The main concern with choosing a device here is finding one that is able to run its timer fast enough to measure the time it takes for two or more sensors to trigger within a few hundred micro seconds of each other. The Arduino Uno runs at 16MHz and has a 16bit timer. That allows for a theoretical $0.0625\mu s$ step size and a total run time of 4.096ms without the timer overflowing. As the processor speed is scaled up to 48MHz, the speed at which the Teensy runs, the theoretical step size decreases to $0.0208\mu s$ and a total run time of 1.365ms without overflowing. 
+	
+	Either of these microcontrollers should be able to measure the time between which the sensors are activated which directs the challenge towards finding sensors that have a low enough rise time to be able to also accurately measure the timing required.
+	
+	\item Custom metal or plastic firing piston designed further on in the project
+	\end{itemize}
+
+	\textbf{Controls Coding:}\\
+	The code for the control system will be developed further on in the project. The code for Trajectory Calculation has been completed in both MATLAB and Python (although there is still work to be done in Python) and the ball velocity timing will have to be redone from the ground up to use the internal timers of the microcontroller that is selected rather than depending on the clock frequency staying constant.\\
+	
+	The code from the Python conversion can be seen in the attached document.
+\end{document}
