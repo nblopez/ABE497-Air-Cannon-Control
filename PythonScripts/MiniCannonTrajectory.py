@@ -68,7 +68,7 @@ Pressure_PostFire = (Res_Pressure_pa * Air_Vol_PreFire**k)/Air_Vol_PostFire**k
 Temp_PostFire = Temp_Outside_K * (Pressure_PostFire/Res_Pressure_pa)**((k-1)/k)
 
 Work = ((Pressure_PostFire * Air_Vol_PostFire) - (Res_Pressure_pa * Air_Vol_PreFire))/(1-k)
-
+print(Work)
 Vel_Exit = np.sqrt((2/Obj_Mass)*Work)
 
 Vy_Exit = Vel_Exit * np.sin(Barrel_Angle_rad)
@@ -86,7 +86,8 @@ Vel_Term = np.sqrt(g/K)
 t = np.linspace(0,10,1000)
 
 init_cond = [0, Vx_Exit, Barrel_Exit_Height, Vy_Exit]
-#print(init_cond)
+
+print(init_cond)
 
 #Solve For Trajectory
 sol = odeint(aerodyn, init_cond, t, args=(K,g))
